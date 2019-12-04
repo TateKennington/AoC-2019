@@ -2,6 +2,8 @@ package main;
 
 import "fmt";
 
+const LOWER = 246540;
+const UPPER = 787419;
 
 func isValid(n int) bool{
 	var adj = false;
@@ -30,7 +32,7 @@ func isValid(n int) bool{
 
 func main(){
 	var ans = 0;
-	for i:=246540; i<=787419; i++{
+	for i:=LOWER; i<=UPPER; i++{
 		if isValid(i){
 			ans++;
 		}
