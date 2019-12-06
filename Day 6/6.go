@@ -13,6 +13,22 @@ type Node struct{
 	level int;
 };
 
+func lowestCommonAncestor(a, b *Node) *Node{
+	var parents = make(map[*Node]bool);
+	for a != nil{
+		parents[a] = true;
+		a = a.parent;
+	}
+	for !parents[b]{
+		b = b.parent;
+	}
+	return b;
+}
+
+func orbitalDistance(a, b, c *Node) int{
+	return (a.parent.level-c.level)+(b.parent.level-c.level);
+}
+
 func main(){
 	var ans = 0;
 	var scn = bufio.NewScanner(os.Stdin);
@@ -42,16 +58,6 @@ func main(){
 		}
 		queue = queue[1:];
 	}
-	var curr = star["YOU"];
-	var parents = make(map[*Node]bool);
-	for curr != nil{
-		parents[curr] = true;
-		curr = curr.parent;
-	}
-	curr = star["SAN"];
-	for !parents[curr]{
-		curr = curr.parent;
-	}
-	fmt.Println((star["YOU"].parent.level-curr.level)+(star["SAN"].parent.level-curr.level));
-	//fmt.Println(ans);
+	fmt.Println(ans);
+	fmt.Println(orbitalDistance(star["YOU"], star["SAN"], lowestCommonAncestor(star["YOU"], star["SAN"])));
 }
